@@ -33,6 +33,12 @@ Set
 The set function is going to use the hash method on the key to create the address, and also is going to create a key/value pair in a list, and then -
 it will going to create a parent list that will comprehen the converted one in the indicated address. 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Big O - Hash table
+----------------------
+Hash tables O(1)
+
 
 
 """
@@ -58,6 +64,30 @@ class HashTable:
         self.data_map[index].append([key,value])
 
 
+    def get_item(self, key):
+        index = self.__hash(key)
+        if self.data_map[index] is not None:
+            for i in range(len(self.data_map[index])):
+                if self.data_map[index][i][0] == key:
+                    return self.data_map[index][i][1]
+        return None
+    
+
+    def keys(self):
+        all_keys = []
+        for i in range(len(self.data_map)):
+            if self.data_map[i] is not None: # to only run the for loop if there are data in that position
+                for j in range(len(self.data_map[i])):
+                    all_keys.append(self.data_map[i][j][0])
+        return all_keys
+        
+
+
+
+
+    
+
+
 if __name__ == "__main__":
 
     my_hash_table = HashTable()
@@ -66,3 +96,13 @@ if __name__ == "__main__":
     my_hash_table.set_item('lumber', 70)
     my_hash_table.print_table()
     
+    # Getting the elements
+    print("*"*20)
+    print(my_hash_table.get_item('bols'))
+    print(my_hash_table.get_item('lumber'))
+    print(my_hash_table.get_item('test'))
+
+
+    # Getting the keys
+    print("*"*20)
+    print(my_hash_table.keys())

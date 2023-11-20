@@ -3,7 +3,7 @@ title: "Big_O_Summary"
 output: pdf_document
 ---
 
-# Big O notation - Summary and key concepts
+# Big O Notation - Review and key concepts
 
 **_Big O notation_ is a space/time complexity measure for algorithms.**
 

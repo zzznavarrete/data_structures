@@ -1,8 +1,7 @@
 class Solution:
+    """
+    #Returns the length of the longest substring with unique characters.
     def lengthOfLongestSubstring(self, s: str) -> int:
-        """
-        Returns the length of the longest substring with unique characters.
-        """
         n = len(s) 
         persist_subs:str = ''
 
@@ -23,7 +22,40 @@ class Solution:
                 persist_subs = dyn_sub
         # Returns the length of the longest list found in the algorithm.
         return len(persist_subs)
-    
+    """
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        """
+        Returns the length of the longest substring with unique characters.
+        """
+        n = len(s)
+        # Variable that will store the current difference between the - 
+        # - longest substr without repeat chars.
+        ans: int = 0
+
+        # Variable that will map the latest seen index (+1) of the iterated char.
+        mp: dict = {}
+
+        # Pointer that will stick the latest unseen char meanwhile the j pointer advances. 
+        i:int = 0
+
+        for j in range(n): # loop that will iterate the pointer j 
+            if s[j] in mp: 
+                # In case the current char is already mapped, then the pointer i -
+                # - gets updated until the latest char s[j] position.
+                i = max(mp[s[j]], i) 
+
+            # Will store the max difference of pointers, meaning - 
+            # - the max difference without repeat chars.
+            ans = max(ans, j - i + 1) 
+
+            # Updated the hash-map of the latest seen position of char s[j]
+            mp[s[j]] = j + 1
+
+        # Given that 'ans' only keep the max difference, it will return the length of the largest
+        # - substring without repetition.
+        return ans 
+
+
 
 if __name__ == "__main__":
     sol = Solution()

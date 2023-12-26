@@ -5,22 +5,28 @@ class ListNode:
 
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        dummy = cur = ListNode(0)
-        carry = 0
-        while l1 or l2 or carry:
-            if l1:
-                carry += l1.val
-                l1 = l1.next
-            
-            if l2:
-                carry += l2.val
-                l2 = l2.next
-        
-            cur.next = ListNode(carry%10)
-            cur = cur.next
-            carry //= 10
+        """
+        Returns a reversed linked list of the sum of the reversed representation of the inputs.
+        """
+        result_op:int = 0 #
+        resultNode = cur = ListNode(0) # Initializing the node
 
-        return dummy.next
+        while l1 or l2 or result_op:
+            if l1:
+                result_op += l1.val
+                l1 = l1.next 
+
+            if l2:
+                result_op += l2.val
+                l2 = l2.next
+
+            cur.next = ListNode(result_op % 10) # Storing the result up to 10 max
+            cur = cur.next
+
+            result_op //= 10
+
+					
+        return resultNode.next
         
 
 if __name__ == "__main__":

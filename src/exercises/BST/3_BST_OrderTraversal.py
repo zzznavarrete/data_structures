@@ -22,41 +22,70 @@ Output: []
 
 class Solution:
     
-    # 1st approach: (Myself)
+    
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-    
-    
+        # Check border case, empty tree
         if not root:
             return []
         
+        # BFS Algorithm:
+        def BFS(root: TreeNode) -> bool:
+            """
+            Perform the in-level population of a list to represent the tree values.
+            """
+            queue:list = []
+            queue.append(root)
+            result:list = []
+                
+            while len(queue) > 0:
+                qLen:int = len(queue)
+                subGroup:list = []
+                    
+                for _ in range(qLen):
+                    currentNode = queue.pop(0)
+                    
+                    if currentNode:
+                        subGroup.append(currentNode.val)
+                        queue.append(currentNode.left)
+                        queue.append(currentNode.right)
+                        
+                if subGroup:
+                    result.append(subGroup)
+                    
+            return result
         
-        key:int = 0
-        dictLevel:dict = {}
-        
-        
-        dictLevel[key] = [root.val]
+        return BFS(root)
+    
 
-        def categorizeLevels(left, right, key:int) -> list:
-            key += 1
-            if not key in dictLevel.keys():
-                dictLevel[key] = []
-
-            if left:
-                dictLevel[key].append(left.val)
-                categorizeLevels(left.left,left.right, key=key)
-
-            if right:
-                dictLevel[key].append(right.val)
-                categorizeLevels(right.left, right.right, key=key)
+""" 1st approach
+    if not root:
+        return []
 
 
-            return [value for (key,value) in dictLevel.items() if len(value) > 0]
-
-        return categorizeLevels(root.left, root.right, key)
-
+    key:int = 0
+    dictLevel:dict = {}
 
 
-            
+    dictLevel[key] = [root.val]
 
-    # 2nd approach - Neetcode
+    def categorizeLevels(left, right, key:int) -> list:
+        key += 1
+        if not key in dictLevel.keys():
+            dictLevel[key] = []
+
+        if left:
+            dictLevel[key].append(left.val)
+            categorizeLevels(left.left,left.right, key=key)
+
+        if right:
+            dictLevel[key].append(right.val)
+            categorizeLevels(right.left, right.right, key=key)
+
+
+        return [value for (key,value) in dictLevel.items() if len(value) > 0]
+
+    return categorizeLevels(root.left, root.right, key)
+
+"""
+
     

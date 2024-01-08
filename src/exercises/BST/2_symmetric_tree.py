@@ -20,22 +20,26 @@ Output: false
 #         self.left = left
 #         self.right = right
 
-
 class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        # Intuition: Check if the right leaf nodes, are equal of the left side of the tree
         
-        def dfs(left: TreeNode, right: TreeNode) -> bool:
+        def dfs(left:TreeNode, right:TreeNode) -> bool:
+            # First, check if there are both leafs to compare
             if not left and not right:
                 return True
-
+            
+            # In case there are one OR the other, it means that the tree is not symmetric.
             if not left or not right:
                 return False
-
-
+            
+            
+            # Check if the leafs accomplish the symmetric condition
             if left.val == right.val:
-                # recursive call
-                return (dfs(left.left, right.right) and dfs(left.right, right.left))
+                # recursive call to check
+                return (dfs(left.left, right.right) and
+                       dfs(left.right, right.left))
 
-
-        return dfs(root.left, root.right)	
-
+        # Call to the recursive method
+        return dfs(root.left, root.right)
+        
